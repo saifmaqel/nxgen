@@ -1,0 +1,51 @@
+
+@baseUrl = http://localhost:3000
+
+
+###
+# 6) List all devices
+GET {{baseUrl}}/devices
+
+###
+# 1) Create a new device (valid)
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": "Temperature Sensor A"
+}
+
+###
+# 2) Create another device (valid)
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": "Humidity Sensor B"
+}
+
+###
+# 3) Try to create a device with an empty name (validation error)
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+###
+# 4) Try to create a device with a duplicate name (should return 409)
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": "Temperature Sensor A"
+}
+
+###
+# 5) Try to create a device with missing name (validation error)
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+}

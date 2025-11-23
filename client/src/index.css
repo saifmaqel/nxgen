@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --background: #ffffff;
+  --foreground: #bf9b30;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #2e2e2e;
+  --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #2e2e2e;
+  --muted: #f5f5f5;
+  --muted-foreground: #8e8e8e;
+  --accent: #f5f5f5;
+  --accent-foreground: #2e2e2e;
+  --destructive: #e34a37;
+  --destructive-foreground: #ffffff;
+  --border: #eaeaea;
+  --input: #eaeaea;
+  --ring: #b5b5b5;
+  --radius: 0.625rem;
+
+  --chart-1: #e7862f;
+  --chart-2: #3a85c6;
+  --chart-3: #4e5fc7;
+  --chart-4: #f3c841;
+  --chart-5: #f4b24d;
+
+  --sidebar: #fafafa;
+  --sidebar-foreground: #171717;
+  --sidebar-primary: #2e2e2e;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #2e2e2e;
+  --sidebar-border: #eaeaea;
+  --sidebar-ring: #b5b5b5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-elsie);
+
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+.dark {
+  /* font-family: Georgia, "Times New Roman", Times, serif; */
+  --background: #101316;
+  --foreground: #d9e1e8;
+  --card: #0b0d0f;
+  --card-foreground: #d9e1e8;
+  --popover: #2e2e2e;
+  --popover-foreground: #fafafa;
+  --primary: #bf9b30;
+  --primary-foreground: #d9e1e8;
+  --secondary: #444444;
+  --secondary-foreground: #fafafa;
+  --muted: #444444;
+  --muted-foreground: #b5b5b5;
+  --accent: #444444;
+  --accent-foreground: #fafafa;
+  --destructive: #d05932;
+  --border: #ffffff1a;
+  --input: #ffffff26;
+  --ring: #8e8e8e;
+
+  --chart-1: #6166e2;
+  --chart-2: #5cced4;
+  --chart-3: #f4b24d;
+  --chart-4: #a176f2;
+  --chart-5: #e46a48;
+
+  --sidebar: #2e2e2e;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #6166e2;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #444444;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #ffffff1a;
+  --sidebar-ring: #8e8e8e;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .chart-axis {
+    font-size: 10px;
+    fill: var(--muted-foreground);
+    font-weight: 500;
+  }
+}

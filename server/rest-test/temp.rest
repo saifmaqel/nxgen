@@ -1,0 +1,124 @@
+@baseUrl = http://localhost:3000
+
+
+###
+# 1) Add temperature record (valid)
+# Make sure a device with ID 1 exists first
+POST {{baseUrl}}/devices/1/data
+Content-Type: application/json
+
+{
+  "timestamp": "2025-01-01T10:00:00Z",
+  "value": 22.5
+}
+
+###
+# 2) Add another temperature reading (valid)
+POST {{baseUrl}}/devices/1/data
+Content-Type: application/json
+
+{
+  "timestamp": "2025-01-01T11:00:00Z",
+  "value": 23.1
+}
+
+###
+# 3) Missing timestamp (validation error)
+POST {{baseUrl}}/devices/1/data
+Content-Type: application/json
+
+{
+  "value": 25.0
+}
+
+###
+# 4) Invalid timestamp format (validation error)
+POST {{baseUrl}}/devices/1/data
+Content-Type: application/json
+
+{
+  "timestamp": "not-a-date",
+  "value": 25.0
+}
+
+###
+# 5) Missing value (validation error)
+POST {{baseUrl}}/devices/1/data
+Content-Type: application/json
+
+{
+  "timestamp": "2025-01-01T12:00:00Z"
+}
+
+###
+# 6) Value must be numeric (validation error)
+POST {{baseUrl}}/devices/1/data
+Content-Type: application/json
+
+{
+  "timestamp": "2025-01-01T12:00:00Z",
+  "value": "abc"
+}
+
+###
+# 7) Device does not exist
+POST {{baseUrl}}/devices/9999/data
+Content-Type: application/json
+
+{
+  "timestamp": "2025-01-01T12:00:00Z",
+  "value": 24.3
+}
+
+###
+# 8) Invalid device ID (non-numeric)
+POST {{baseUrl}}/devices/abc/data
+Content-Type: application/json
+
+{
+  "timestamp": "2025-01-01T12:00:00Z",
+  "value": 25.5
+}
+
+###############################################################
+# GET RANGE TESTS (QUERY VERSION)
+###############################################################
+
+### VALID REQUEST
+GET http://localhost:3000/devices/1/data?from=2025-01-01T00:00:00.000Z&to=2025-12-10T00:00:00.000Z
+
+
+### INVALID DEVICE ID (non-numeric)
+GET http://localhost:3000/devices/abc/data?from=2025-01-01&to=2025-01-02
+
+
+### INVALID DEVICE ID (0)
+GET http://localhost:3000/devices/0/data?from=2025-01-01&to=2025-01-02
+
+
+### INVALID DEVICE ID (negative)
+GET http://localhost:3000/devices/-5/data?from=2025-01-01&to=2025-01-02
+
+
+### MISSING 'from'
+GET http://localhost:3000/devices/1/data?to=2025-01-02
+
+
+### INVALID 'from' FORMAT
+GET http://localhost:3000/devices/1/data?from=invalid-date&to=2025-01-02
+
+
+### MISSING 'to'
+GET http://localhost:3000/devices/1/data?from=2025-01-01
+
+
+### INVALID 'to' FORMAT
+GET http://localhost:3000/devices/1/data?from=2025-01-01&to=not-a-date
+
+
+### FROM > TO (invalid range)
+GET http://localhost:3000/devices/1/data?from=2025-01-10&to=2025-01-01
+
+
+### DEVICE NOT FOUND
+GET http://localhost:3000/devices/9999/data?from=2025-01-01&to=2025-01-02
