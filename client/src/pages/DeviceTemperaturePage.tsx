@@ -5,7 +5,7 @@ import { setSelectedDevice } from "@/store/deviceSlice";
 import { useEffect } from "react";
 import { useDevices } from "@/features/devices/hooks/useDevices";
 
-export function DeviceTemperaturePage() {
+export default function DeviceTemperaturePage() {
   const { deviceId } = useParams<{ deviceId: string }>();
   const dispatch = useAppDispatch();
   const { data: devices = [] } = useDevices();

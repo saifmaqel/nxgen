@@ -17,7 +17,7 @@ import { AppLoader } from "@/components/AppLoader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export function DeviceVisualizationPage() {
+export default function DeviceVisualizationPage() {
   const { deviceId } = useParams<{ deviceId: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

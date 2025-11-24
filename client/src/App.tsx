@@ -1,24 +1,40 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./pages/Layout";
-import { DeviceManagementLayout } from "./pages/DeviceManagementLayout";
-import { DeviceManagementHomePage } from "./pages/DeviceManagementHomePage";
-import { DeviceTemperaturePage } from "./pages/DeviceTemperaturePage";
-import { DeviceVisualizationPage } from "./pages/DeviceVisualizationPage";
+import { AppLoader } from "./components/AppLoader";
+
+const DeviceManagementLayout = lazy(
+  () => import("./pages/DeviceManagementLayout")
+);
+const DeviceManagementHomePage = lazy(
+  () => import("./pages/DeviceManagementHomePage")
+);
+const DeviceTemperaturePage = lazy(
+  () => import("./pages/DeviceTemperaturePage")
+);
+const DeviceVisualizationPage = lazy(
+  () => import("./pages/DeviceVisualizationPage")
+);
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route element={<DeviceManagementLayout />}>
-          <Route index element={<DeviceManagementHomePage />} />
-          <Route path="device/:deviceId" element={<DeviceTemperaturePage />} />
+    <Suspense fallback={<AppLoader />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route element={<DeviceManagementLayout />}>
+            <Route index element={<DeviceManagementHomePage />} />
+            <Route
+              path="device/:deviceId"
+              element={<DeviceTemperaturePage />}
+            />
+          </Route>
+          <Route
+            path="device/:deviceId/charts"
+            element={<DeviceVisualizationPage />}
+          />
         </Route>
-        <Route
-          path="device/:deviceId/charts"
-          element={<DeviceVisualizationPage />}
-        />
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 }
 
