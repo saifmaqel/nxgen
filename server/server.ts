@@ -29,6 +29,6 @@ app.listen(port, () => {
 });
 
 // add readme file
-// try to seed database on build
+// seed database on build
 // make sure you have docker container running
 // deploy to rendrer
