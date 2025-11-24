@@ -12,7 +12,7 @@ export function TemperatureHeader({ deviceId }: TemperatureHeaderProps) {
   const navigate = useNavigate();
 
   const handleVisualize = () => {
-    navigate(`/device/${deviceId}/visual`);
+    navigate(`/device/${deviceId}/charts`);
   };
 
   return (

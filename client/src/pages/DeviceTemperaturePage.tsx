@@ -1,4 +1,4 @@
-import DeviceTemperatureCard from "@/features/devicestempreture/DeviceTemperatureCard";
+import DeviceTemperatureCard from "@/features/devicesTempreture/DeviceTemperatureCard";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "@/store/hooks";
 import { setSelectedDevice } from "@/store/deviceSlice";

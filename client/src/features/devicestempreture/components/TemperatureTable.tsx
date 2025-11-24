@@ -10,15 +10,15 @@ import {
 import { useAppSelector } from "@/store/hooks";
 import { Clock, Thermometer } from "lucide-react";
 
-interface TemperatureListProps {
+interface TemperatureTableProps {
   temperatures: Temperature[];
   isLoading: boolean;
 }
 
-export function TemperatureList({
+export function TemperatureTable({
   temperatures,
   isLoading,
-}: TemperatureListProps) {
+}: TemperatureTableProps) {
   const selectedDevice = useAppSelector((state) => state.device.selectedDevice);
 
   if (isLoading) {
@@ -40,7 +40,7 @@ export function TemperatureList({
   return (
     <div className="space-y-4">
       <h3 className="text-base sm:text-lg font-semibold">
-       {temperatures.length} Temperature Readings  For {selectedDevice?.name}
+        {temperatures.length} Temperature Readings For {selectedDevice?.name}
       </h3>
       <Table>
         <TableHeader>
@@ -72,4 +72,3 @@ export function TemperatureList({
     </div>
   );
 }
-

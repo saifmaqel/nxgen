@@ -9,9 +9,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useAddDeviceTemperature } from "../hooks/useAddDeviceTemperature";
 import { Plus } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { useAddDeviceTemperature } from "../hooks/useAddDeviceTemperature";
 
 interface AddTemperatureFormProps {
   deviceId: number;
@@ -45,7 +45,11 @@ export function AddTemperatureForm({ deviceId }: AddTemperatureFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="gap-2 text-xs sm:text-sm md:text-base" size="sm" variant="primary">
+        <Button
+          className="gap-2 text-xs sm:text-sm md:text-base bg-primary/10 text-primary"
+          size="sm"
+          variant="secondary"
+        >
           <Plus className="h-4 w-4" />
           Add Reading
         </Button>
@@ -105,4 +109,3 @@ export function AddTemperatureForm({ deviceId }: AddTemperatureFormProps) {
     </Dialog>
   );
 }
-

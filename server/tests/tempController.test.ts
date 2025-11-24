@@ -1,11 +1,18 @@
-import express, { type Request, type Response } from "express";
-import { prismaMock } from "./singleton.js";
+import type { Request, Response } from "express";
+import { describe, beforeEach, jest, test, expect, it } from "@jest/globals";
+import { mockDeep, mockReset } from "jest-mock-extended";
+import { PrismaClient } from "../generated/prisma/client.ts";
+
+const prismaMock = mockDeep<PrismaClient>();
+
+jest.mock("../lib/prisma.ts", () => ({
+  prisma: prismaMock,
+}));
+
 import {
   addDeviceTemp,
   getDeviceTempInRange,
-} from "../controllers/deviceTempControllers.js";
-import { describe, beforeEach, jest, it, expect } from "@jest/globals";
-import "./singleton.js";
+} from "../controllers/deviceTempControllers.ts";
 
 describe("Temperature Controller (unit)", () => {
   let req: Partial<Request>;
@@ -14,10 +21,10 @@ describe("Temperature Controller (unit)", () => {
   beforeEach(() => {
     req = { params: {} };
     res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
+      status: jest.fn().mockReturnThis() as any,
+      json: jest.fn() as any,
     };
-    jest.clearAllMocks();
+    mockReset(prismaMock);
   });
 
   describe("addDeviceTemp", () => {
@@ -80,19 +87,19 @@ describe("Temperature Controller (unit)", () => {
   describe("getDeviceTempInRange", () => {
     it("should return 400 if from or to is missing / invalid", async () => {
       req.params = { id: "1" };
-      req.body = { from: "invalid-date", to: "2025-01-01" };
+      req.query = { from: "invalid-date", to: "2025-01-01" };
 
       await getDeviceTempInRange(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
-        message: "Body parameter 'from' is required and must be a valid date.",
+        message: "Query parameter 'from' is required and must be a valid date.",
       });
     });
 
     it("should return 404 if device not found", async () => {
       req.params = { id: "5" };
-      req.body = { from: "2025-01-01", to: "2025-01-01" };
+      req.query = { from: "2025-01-01", to: "2025-01-01" };
       prismaMock.device.findUnique.mockResolvedValue(null);
 
       await getDeviceTempInRange(req as Request, res as Response);
@@ -106,7 +113,7 @@ describe("Temperature Controller (unit)", () => {
 
     it("should return readings when valid", async () => {
       req.params = { id: "5" };
-      req.body = { from: "2025-01-01", to: "2025-01-02" };
+      req.query = { from: "2025-01-01", to: "2025-01-02" };
       prismaMock.device.findUnique.mockResolvedValue({
         id: 5,
         name: "D",

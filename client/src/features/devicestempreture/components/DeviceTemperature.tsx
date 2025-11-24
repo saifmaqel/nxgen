@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { AppLoader } from "@/components/AppLoader";
 import { useDeviceTemperatures } from "../hooks/useDeviceTemperatures";
 import { TemperatureHeader } from "./TemperatureHeader";
-import { TemperatureList } from "./TemperatureList";
+import { TemperatureTable } from "./TemperatureTable";
 import { Label } from "@/components/ui/label";
 import { useAppSelector } from "@/store/hooks";
 
@@ -12,13 +12,29 @@ export function DeviceTemperature() {
   const deviceId = useAppSelector((state) => state.device.selectedDevice?.id);
 
   const [fromDate, setFromDate] = useState(() => {
-    const date = new Date();
-    date.setDate(date.getDate() - 7);
-    return date.toISOString().slice(0, 16);
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const hh = String(d.getHours()).padStart(2, "0");
+    const min = String(d.getMinutes()).padStart(2, "0");
+
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
   });
 
   const [toDate, setToDate] = useState(() => {
-    return new Date().toISOString().slice(0, 16);
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const hh = String(d.getHours()).padStart(2, "0");
+    const min = String(d.getMinutes()).padStart(2, "0");
+
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
   });
 
   const {
@@ -79,7 +95,7 @@ export function DeviceTemperature() {
             Failed to load temperature data
           </p>
         ) : (
-          <TemperatureList temperatures={temperatures} isLoading={isLoading} />
+          <TemperatureTable temperatures={temperatures} isLoading={isLoading} />
         )}
       </CardContent>
     </Card>

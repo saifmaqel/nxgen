@@ -14,7 +14,7 @@ function App() {
           <Route path="device/:deviceId" element={<DeviceTemperaturePage />} />
         </Route>
         <Route
-          path="device/:deviceId/visual"
+          path="device/:deviceId/charts"
           element={<DeviceVisualizationPage />}
         />
       </Route>

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setSelectedDevice } from "@/store/deviceSlice";
 import { useEffect, useState } from "react";
 import { useDevices } from "@/features/devices/hooks/useDevices";
-import { useDeviceTemperatures } from "@/features/devicestempreture/hooks/useDeviceTemperatures";
+import { useDeviceTemperatures } from "@/features/devicesTempreture/hooks/useDeviceTemperatures";
 import { DeviceInfoCards } from "@/features/visualization/components/DeviceInfoCards";
 import { DeviceTemperatureLineChart } from "@/features/visualization/components/DeviceTemperatureLineChart";
 import { DeviceTemperatureAreaChart } from "@/features/visualization/components/DeviceTemperatureAreaChart";
@@ -27,7 +27,7 @@ export function DeviceVisualizationPage() {
   // the prev 7 days by default
   const [dateRange, setDateRange] = useState<DateRange>({
     from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-    to: new Date(),
+    to: new Date(Date.now() + 24 * 60 * 60 * 1000),
     label: "Last 7 Days",
   });
 
