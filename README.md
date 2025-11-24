@@ -1,4 +1,4 @@
-# NxGen - IoT Device Temperature Monitoring System
+# NxGen - IoT Device Temperature Dashboard
 
 A full-stack application for monitoring and managing IoT device temperature readings. Built with React, Node.js, Express, PostgreSQL, and Prisma.
 
